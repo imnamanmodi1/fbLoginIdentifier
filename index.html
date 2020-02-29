@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FB Login Identifier by Digitaliz</title>
+    <script type="text/javascript">
+        function show_login_status(network, status) {
+            var messengerUrl = "" // enter messenger's url
+            var botUrl = "" // enter  bot's url
+            var getButton = document.getElementById("chat-with-me")
+            if (status) {
+                // you can do something if login status is true
+                getButton.href = messengerUrl;
+                setTimeout(function () {
+                    window.location.href = messengerUrl;
+                }, 3000);
+            } else {
+                // you can do something if login status is not true 
+                getButton.href = botUrl
+                setTimeout(function () {
+                    window.location.href = botUrl;
+                }, 3000);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <center>
+        <div id="fb-root"></div>
+        <div>
+            <h3>Hello Mate,</h3>
+            <p>I am Naman & you can click on the below link to talk to me. You will be redirected automatically in 3
+                seconds.</p>
+        </div>
+        <a id="chat-with-me" href="#">Talk to Me</a>
+    </center>
+</body>
+
+<footer>
+    <script>
+        var appIdFb = "2673494026216198" // replace it with your own facebook app id
+        window.fbAsyncInit = function () {
+            FB.init({ appId: appIdFb, status: true, cookie: true, xfbml: true });
+            FB.getLoginStatus(function (response) {
+                if (response.status != "unknown") {
+                    show_login_status("Facebook", true);
+                } else {
+                    show_login_status("Facebook", false);
+                }
+            });
+        };
+        // Below fn loads the FB's SDK Asynchronously
+        (function (d) {
+            var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "https://connect.facebook.net/en_US/all.js";
+            d.getElementsByTagName('head')[0].appendChild(js);
+        }(document));
+    </script>
+</footer>
+
+</html>
