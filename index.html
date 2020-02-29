@@ -41,11 +41,12 @@
 </body>
 
 <footer>
-    <script>
+    <script type="text/javascript">
         var appIdFb = "2673494026216198" // replace it with your own facebook app id
         window.fbAsyncInit = function () {
             FB.init({ appId: appIdFb, status: true, cookie: true, xfbml: true });
             FB.getLoginStatus(function (response) {
+                console.log(response, "this is response")
                 if (response.status != "unknown") {
                     show_login_status("Facebook", true);
                 } else {
@@ -61,13 +62,13 @@
             d.getElementsByTagName('head')[0].appendChild(js);
         }(document));
     </script>
-    <script>
+    <script type="text/javascript">
         var seconds_left = 3; // enter number of seconds
         var interval = setInterval(function () {
             document.getElementById('timer_div').innerHTML = --seconds_left;
 
             if (seconds_left <= 0) {
-                document.getElementById('timer_div').innerHTML = 'You are ready';
+                document.getElementById('timer_div').innerHTML = 'If you are not redirected automatically, click below';
                 clearInterval(interval);
             }
         }, 1000);
