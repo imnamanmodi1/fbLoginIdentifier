@@ -7,8 +7,8 @@
     <title>FB Login Identifier by Digitaliz</title>
     <script type="text/javascript">
         function show_login_status(network, status) {
-            var messengerUrl = "" // enter messenger's url
-            var botUrl = "" // enter  bot's url
+            var messengerUrl = "https://m.me/imnamanmodi" // enter messenger's url
+            var botUrl = "https://share.botstar.com/?id=s1c2847e7-a13c-4fd2-9563-7cb0d6c8addc" // enter  bot's url
             var getButton = document.getElementById("chat-with-me")
             if (status) {
                 // you can do something if login status is true
@@ -35,6 +35,7 @@
             <p>I am Naman & you can click on the below link to talk to me. You will be redirected automatically in 3
                 seconds.</p>
         </div>
+        <p id="timer_div"></p>
         <a id="chat-with-me" href="#">Talk to Me</a>
     </center>
 </body>
@@ -59,6 +60,17 @@
             js.src = "https://connect.facebook.net/en_US/all.js";
             d.getElementsByTagName('head')[0].appendChild(js);
         }(document));
+    </script>
+    <script>
+        var seconds_left = 3; // enter number of seconds
+        var interval = setInterval(function () {
+            document.getElementById('timer_div').innerHTML = --seconds_left;
+
+            if (seconds_left <= 0) {
+                document.getElementById('timer_div').innerHTML = 'You are ready';
+                clearInterval(interval);
+            }
+        }, 1000);
     </script>
 </footer>
 
