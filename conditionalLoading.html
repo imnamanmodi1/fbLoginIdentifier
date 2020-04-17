@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FB Login Check + Load Scripts Conditionally</title>
+  <script type="text/javascript">
+    // this fn can totally remove messenger chat
+    var hideMessenger = function () {
+      document.getElementsByClassName('fb-chat-html')[0].style.display = 'none';
+      document.getElementsByClassName('fb-chat-html')[0].innerHTML = '';
+      document.getElementsByClassName('fb-chat-html')[0].innerText = '';
+    }
+
+    function show_login_status(network, status) {
+      if (status) {
+        // you can do something if login status is true
+        console.log('Facebook is Logged In & hence loading messenger chat')
+      } else {
+        // you can do something if login status is not true 
+        console.log(`Facebook is not logged In & hence loading botstar's chat`)
+        //hides messenger
+        hideMessenger()
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://digitaliz.in/botstar.js";
+        document.head.appendChild(script);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <!-- ADD ALL THE FACEBOOK's CHAT PLUGIN'S HTML INSIDE THIS DIV TAG -->
+  <div class="fb-chat-html">
+    <div id="fb-root"></div>
+    <div class="fb-customerchat" attribution="setup_tool" page_id="109007700695057" theme_color="#fa3c4c"
+      logged_in_greeting="Hi, how can we help you today?" logged_out_greeting="Hi, how can we help you today?"
+      greeting_dialog_display="hide"></div>
+  </div>
+</body>
+
+<footer>
+  <script type="text/javascript">
+    var appIdFb = "2673494026216198" // replace it with your own facebook app id
+    window.fbAsyncInit = function () {
+      FB.init({ appId: appIdFb, status: true, cookie: true, xfbml: true, version: 'v3.2' });
+      FB.getLoginStatus(function (response) {
+        console.log(response, "this is response")
+        if (response.status != "unknown") {
+          show_login_status("Facebook", true);
+        } else {
+          show_login_status("Facebook", false);
+
+        }
+      });
+    };
+    // Below fn loads the FB's SDK + Customer Chat Plugin Asynchronously
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id; js.async = true;
+      js.src = "https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+</footer>
+
+</html>
